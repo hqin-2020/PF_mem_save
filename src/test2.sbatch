@@ -1,13 +1,13 @@
 #!/bin/bash
 
-#SBATCH --job-name=pf20007
-#SBATCH --output=pf20007.out
-#SBATCH --error=pf20007.err
+#SBATCH --job-name=test2
+#SBATCH --output=test2.out
+#SBATCH --error=test2.err
 #SBATCH --time=36:00:00
-#SBATCH --partition=bigmem2
+#SBATCH --partition=edu2
 #SBATCH --nodes=1
 #SBATCH --cpus-per-task=28
-#SBATCH --mem=450G
+#SBATCH --mem=60G
 
 # Load Python modules
 module load python/anaconda-2020.02
