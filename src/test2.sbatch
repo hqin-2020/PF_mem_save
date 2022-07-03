@@ -6,8 +6,8 @@
 #SBATCH --time=36:00:00
 #SBATCH --partition=edu2
 #SBATCH --nodes=1
-#SBATCH --cpus-per-task=28
-#SBATCH --mem=60G
+#SBATCH --cpus-per-task=1
+#SBATCH --mem=30G
 
 # Load Python modules
 module load python/anaconda-2020.02
