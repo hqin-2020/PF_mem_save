@@ -44,6 +44,7 @@ if __name__ == '__main__':
     pool = multiprocessing.Pool()
     Output_0 = pool.map(init, tqdm(Input_0))
     del(Input_0)
+    D_t_next = obs_series[:,[1]]
     Input = [[D_t_next, Output_0[i][1], Output_0[i][2], seed+i] for i in range(N)]
     del(Output_0)
     # with open(casedir + 'θ_0.pkl', 'wb') as f:
@@ -58,7 +59,6 @@ if __name__ == '__main__':
     #     pickle.dump(list(np.ones(N)/N), f)
     run_time = time.time() - start_time
     print(run_time)    
-    
     for t in tqdm(range(T-1)):
 
         pool = multiprocessing.Pool()
