@@ -6,7 +6,7 @@
 #SBATCH --error=pf10009h.err
 #SBATCH --time=6-23:00:00
 #SBATCH --partition=standard
-#SBATCH --cpus-per-task=50
+#SBATCH --cpus-per-task=28
 #SBATCH --mem=32G
 
 # Load Python modules
