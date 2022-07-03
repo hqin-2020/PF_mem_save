@@ -16,9 +16,9 @@ if __name__ == '__main__':
     workdir = os.path.dirname(os.getcwd())
     srcdir = os.getcwd()
     datadir = workdir + '/data/'
-    outputdir = workdir + '/output/'
+    outputdir = '/scratch/qhaomin/'
 
-    seed = 9
+    seed = 8
 
     obs_series = pd.read_csv(datadir + 'data.csv', delimiter=',')
     obs_series = np.array(obs_series.iloc[:,1:]).T
@@ -65,11 +65,10 @@ if __name__ == '__main__':
         Output = pool.map(recursive, Input)
         del(Input)
 
-        if t in [49,99,199,281]:
-            θ_t_next_particle = [i[0] for i in Output]
-            with open(casedir + 'θ_' + str(t+1) + '.pkl', 'wb') as f:
-                pickle.dump(θ_t_next_particle, f)
-            del(θ_t_next_particle)
+        θ_t_next_particle = [i[0] for i in Output]
+        with open(casedir + 'θ_' + str(t+1) + '.pkl', 'wb') as f:
+            pickle.dump(θ_t_next_particle, f)
+        del(θ_t_next_particle)
         ν_t_next_particle = [i[3] for i in Output]    
 
         # with open(casedir + 'X_' + str(t+1) + '.pkl', 'wb') as f:
