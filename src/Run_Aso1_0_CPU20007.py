@@ -24,7 +24,7 @@ if __name__ == '__main__':
     obs_series = np.array(obs_series.iloc[:,1:]).T
 
     T = obs_series.shape[1]
-    N = 2000000
+    N = 1000000
     Λ_scale = 1.0
     cd_scale = 1.0
 
@@ -44,13 +44,10 @@ if __name__ == '__main__':
     pool = multiprocessing.Pool()
     Output_0 = pool.map(init, tqdm(Input_0))
     del(Input_0)
-    θ_t_particle = [i[0] for i in Output_0]
-    X_t_particle = [i[1] for i in Output_0]
-    H_t_particle = [i[2] for i in Output_0]
+    Input = [[D_t_next, Output_0[i][1], Output_0[i][2], seed+i] for i in range(N)]
     del(Output_0)
     # with open(casedir + 'θ_0.pkl', 'wb') as f:
     #     pickle.dump(θ_t_particle, f)
-    del(θ_t_particle)
     # with open(casedir + 'X_0.pkl', 'wb') as f:
     #     pickle.dump(X_t_particle, f)
     # with open(casedir + 'H_0.pkl', 'wb') as f:
@@ -63,13 +60,6 @@ if __name__ == '__main__':
     print(run_time)    
     
     for t in tqdm(range(T-1)):
-        
-        D_t_next = obs_series[:,[t+1]]
-        
-        Input = [[D_t_next, X_t_particle[i], H_t_particle[i], seed+t+i] for i in range(N)]
-        del(D_t_next)
-        del(X_t_particle)
-        del(H_t_particle)
 
         pool = multiprocessing.Pool()
         Output = pool.map(recursive, Input)
@@ -80,10 +70,7 @@ if __name__ == '__main__':
             with open(casedir + 'θ_' + str(t+1) + '.pkl', 'wb') as f:
                 pickle.dump(θ_t_next_particle, f)
             del(θ_t_next_particle)
-        X_t_next_particle = [i[1] for i in Output]
-        H_t_next_particle = [i[2] for i in Output]
         ν_t_next_particle = [i[3] for i in Output]    
-        del(Output)
 
         # with open(casedir + 'X_' + str(t+1) + '.pkl', 'wb') as f:
         #     pickle.dump(X_t_next_particle, f)
@@ -107,20 +94,14 @@ if __name__ == '__main__':
         del(w_t_next)
         # with open(casedir + 'count_' + str(t+1) + '.pkl', 'wb') as f:
         #     pickle.dump(count_all, f)
-        
-        X_t_particle = []
-        H_t_particle = []
-        
+
+        D_t_next = obs_series[:,[t+1]]
+        Input = []
         for i in range(N):
             if count_all[i] != 0:
                 for n in range(count_all[i]):
-                    X_t_particle.append(X_t_next_particle[i])
-        del(X_t_next_particle)
-        for i in range(N):
-            if count_all[i] != 0:
-                for n in range(count_all[i]):
-                    H_t_particle.append(H_t_next_particle[i])
-        del(H_t_next_particle)
+                    Input.append([D_t_next, Output[i][1], Output[i][2], seed+t+i])
+        del(Output)
         del(count_all)            
        
         
