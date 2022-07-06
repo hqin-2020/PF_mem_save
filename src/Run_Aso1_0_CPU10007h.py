@@ -48,9 +48,10 @@ if __name__ == '__main__':
     gc.collect()
     D_t_next = obs_series[:,[1]]
     Input = [[D_t_next, Output_0[i][1], Output_0[i][2], seed+i] for i in range(N)]
-    print('0',psutil.Process().memory_full_info().rss/(1024*1024))
+    print('1', psutil.Process().memory_full_info().rss/(1024*1024*1024))
     del(Output_0)
     gc.collect()
+    print('2', psutil.Process().memory_full_info().rss/(1024*1024*1024))
     # with open(casedir + 'θ_0.pkl', 'wb') as f:
     #     pickle.dump(θ_t_particle, f)
     # with open(casedir + 'X_0.pkl', 'wb') as f:
@@ -67,7 +68,7 @@ if __name__ == '__main__':
 
         pool = multiprocessing.Pool()
         Output = pool.map(recursive, Input)
-        print('1',psutil.Process().memory_full_info().rss/(1024*1024))
+        print('3',psutil.Process().memory_full_info().rss/(1024*1024*1024))
         del(Input)
         gc.collect()
 
@@ -109,7 +110,7 @@ if __name__ == '__main__':
             if count_all[i] != 0:
                 for n in range(count_all[i]):
                     Input.append([D_t_next, Output[i][1], Output[i][2], seed+t+i])
-        print('2',psutil.Process().memory_full_info().rss/(1024*1024))
+        print('2',psutil.Process().memory_full_info().rss/(1024*1024*1024))
         del(Output)
         gc.collect()
         del(count_all)        
