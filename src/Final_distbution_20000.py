@@ -102,7 +102,7 @@ def return_coll(θ_final):
 
 plot_series = []
 for i in tqdm(range(len(θ_name))):
-    plot_series.append(pd.DataFrame([θ_coll7[i],θ_coll8[i]]],index = ['seed = 7','seed = 8']).T)
+    plot_series.append(pd.DataFrame([θ_coll7[i],θ_coll8[i]],index = ['seed = 7','seed = 8']).T)
 
 period = t
 fig, axes = plt.subplots(6,4,figsize = (15,10))
