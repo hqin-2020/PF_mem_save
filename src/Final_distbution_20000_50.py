@@ -7,7 +7,7 @@ import time
 from tqdm import tqdm
 import pickle
 import os
-
+sns.set()
 workdir = os.path.dirname(os.getcwd())
 srcdir = os.getcwd()
 datadir = workdir + '/data/'
