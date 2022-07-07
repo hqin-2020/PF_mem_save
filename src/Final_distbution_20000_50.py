@@ -37,15 +37,15 @@ def return_dir(seed):
 
 casedir7 = return_dir(7)
 casedir8 = return_dir(8)
-# casedir9 = return_dir(9)
+casedir9 = return_dir(9)
 
 t = 50
 with open(casedir7 + 'θ_'+str(t)+'.pkl', 'rb') as f:
        θ_final7 = pickle.load(f)
 with open(casedir8 + 'θ_'+str(t)+'.pkl', 'rb') as f:
        θ_final8 = pickle.load(f)
-# with open(casedir9 + 'θ_'+str(t)+'.pkl', 'rb') as f:
-#        θ_final9 = pickle.load(f)
+with open(casedir9 + 'θ_'+str(t)+'.pkl', 'rb') as f:
+       θ_final9 = pickle.load(f)
 
 def return_coll(θ_final):
     λ_particle = []; η_particle = []; b11_particle = []; b22_particle = []
@@ -94,15 +94,11 @@ def return_coll(θ_final):
 
 θ_coll7 = return_coll(θ_final7)
 θ_coll8 = return_coll(θ_final8)
-# θ_coll9 = return_coll(θ_final9)
-
-# plot_series = []
-# for i in tqdm(range(len(θ_name))):
-#     plot_series.append(pd.DataFrame([θ_coll7[i],θ_coll8[i],θ_coll9[i]],index = ['seed = 7','seed = 8','seed = 9']).T)
+θ_coll9 = return_coll(θ_final9)
 
 plot_series = []
 for i in tqdm(range(len(θ_name))):
-    plot_series.append(pd.DataFrame([θ_coll7[i],θ_coll8[i]],index = ['seed = 7','seed = 8']).T)
+    plot_series.append(pd.DataFrame([θ_coll7[i],θ_coll8[i],θ_coll9[i]],index = ['seed = 7','seed = 8','seed = 9']).T)
 
 period = t
 fig, axes = plt.subplots(6,4,figsize = (15,10))
